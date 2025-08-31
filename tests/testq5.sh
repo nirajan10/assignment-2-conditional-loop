@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile
-gcc src/q_factorial.c -o q_factorial
+gcc src/q5.c -o q5
 
 # Test data: input -> expected factorial
 declare -A tests=(
@@ -14,11 +14,11 @@ declare -A tests=(
 
 for input in "${!tests[@]}"; do
   expected="${tests[$input]}"
-  output=$(echo "$input" | ./q_factorial | tr -cd '0-9')
+  output=$(echo "$input" | ./q5 | tr -cd '0-9')
   if [ "$output" = "$expected" ]; then
-    echo "✅ Test with input $input passed"
+    echo "✅ Q5 test with input $input passed"
   else
-    echo "❌ Test with input $input failed"
+    echo "❌ Q5 test with input $input failed"
     exit 1
   fi
 done

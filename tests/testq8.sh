@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile
-gcc src/q_pattern_inc.c -o q_pattern_inc
+gcc src/q8.c -o q8
 
 # Define the expected pattern
 expected=$(cat <<'EOF'
@@ -14,11 +14,11 @@ EOF
 )
 
 # Run the program and normalize output
-output=$(./q_pattern_inc | sed 's/[[:space:]]*$//')
+output=$(./q8 | sed 's/[[:space:]]*$//')
 
 if [ "$output" = "$expected" ]; then
-  echo "✅ Increasing pattern test passed"
+  echo "✅ Q8 pattern test passed"
 else
-  echo "❌ Increasing pattern test failed"
+  echo "❌ Q8 pattern test failed"
   exit 1
 fi

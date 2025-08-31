@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile
-gcc src/q_multiplication_while.c -o q_multiplication_while
+gcc src/q18.c -o q18
 
 # Test data: input -> expected sequence
 declare -A tests=(
@@ -13,11 +13,11 @@ declare -A tests=(
 for input in "${!tests[@]}"; do
   expected="${tests[$input]}"
   # Run program and extract numbers only
-  output=$(echo "$input" | ./q_multiplication_while | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ')
+  output=$(echo "$input" | ./q18 | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ')
   if [ "$output" = "$expected" ]; then
-    echo "✅ Test with input $input passed"
+    echo "✅ Q18 test with input $input passed"
   else
-    echo "❌ Test with input $input failed"
+    echo "❌ Q18 test with input $input failed"
     exit 1
   fi
 done

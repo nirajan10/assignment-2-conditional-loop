@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile
-gcc src/q_prime.c -o q_prime
+gcc src/q15.c -o q15
 
 # Test data: input -> expected keyword
 declare -A tests=(
@@ -16,11 +16,11 @@ declare -A tests=(
 for input in "${!tests[@]}"; do
   expected="${tests[$input]}"
   # Run program and convert output to lowercase
-  output=$(echo "$input" | ./q_prime | tr '[:upper:]' '[:lower:]')
+  output=$(echo "$input" | ./q15 | tr '[:upper:]' '[:lower:]')
   if echo "$output" | grep -q "$expected"; then
-    echo "✅ Test with input $input passed"
+    echo "✅ Q15 test with input $input passed"
   else
-    echo "❌ Test with input $input failed"
+    echo "❌ Q15 test with input $input failed"
     exit 1
   fi
 done

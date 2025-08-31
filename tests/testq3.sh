@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile
-gcc src/q_abs.c -o q_abs
+gcc src/q3.c -o q3
 
 # Test data: input -> expected absolute value
 declare -A tests=(
@@ -14,11 +14,11 @@ declare -A tests=(
 
 for input in "${!tests[@]}"; do
   expected="${tests[$input]}"
-  output=$(echo "$input" | ./q_abs | tr -d '[:space:]')
+  output=$(echo "$input" | ./q3 | tr -d '[:space:]')
   if echo "$output" | grep -q "$expected"; then
-    echo "✅ Test with input $input passed"
+    echo "✅ Q3 test with input $input passed"
   else
-    echo "❌ Test with input $input failed"
+    echo "❌ Q3 test with input $input failed"
     exit 1
   fi
 done

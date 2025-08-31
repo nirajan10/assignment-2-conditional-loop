@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Compile
-gcc src/q_even.c -o q_even
+gcc src/q4.c -o q4
 
 # Run program and extract numbers only
-output=$(./q_even | tr -cd '0-9\n ')
+output=$(./q4 | tr -cd '0-9\n ')
 
 # Prepare expected sequence
 expected=$(seq 2 2 100 | tr '\n' ' ' | tr -s ' ')
@@ -13,8 +13,8 @@ expected=$(seq 2 2 100 | tr '\n' ' ' | tr -s ' ')
 output_norm=$(echo "$output" | tr '\n' ' ' | tr -s ' ')
 
 if [ "$output_norm" = "$expected" ]; then
-  echo "✅ Q_even test passed"
+  echo "✅ Q4 test passed"
 else
-  echo "❌ Q_even test failed"
+  echo "❌ Q4 test failed"
   exit 1
 fi

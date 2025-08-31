@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile
-gcc src/q_pyramid.c -o q_pyramid
+gcc src/q10.c -o q10
 
 # Define the expected pattern
 expected=$(cat <<'EOF'
@@ -12,11 +12,11 @@ EOF
 )
 
 # Run the program and normalize output
-output=$(./q_pyramid | sed 's/[[:space:]]*$//')
+output=$(./q10 | sed 's/[[:space:]]*$//')
 
 if [ "$output" = "$expected" ]; then
-  echo "✅ Pyramid pattern test passed"
+  echo "✅ Q10 pattern test passed"
 else
-  echo "❌ Pyramid pattern test failed"
+  echo "❌ Q10 pattern test failed"
   exit 1
 fi

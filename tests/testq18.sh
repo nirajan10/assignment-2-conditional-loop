@@ -1,22 +1,23 @@
 #!/bin/bash
-set -e
 
-# Disallow loops or conditionals
-if grep -E "for|while|if" src/q18.c; then
-  echo "⚠️ Warning: Found 'if', 'for', or 'while' in the code."
-  echo "These may appear in comments, strings, or identifiers — please double-check."
-  echo "Remove comment and instance of 'if', 'for', or 'while' from the code."
-  echo "❌ Q18 failed (loops/conditionals not allowed)"
-  exit 1
-fi
+# Compile
+gcc src/q_multiplication_while.c -o q_multiplication_while
 
-gcc src/q18.c -o q18
+# Test data: input -> expected sequence
+declare -A tests=(
+  [2]="2 4 6 8 10 12 14 16 18 20"
+  [5]="5 10 15 20 25 30 35 40 45 50"
+  [1]="1 2 3 4 5 6 7 8 9 10"
+)
 
-# Test: a=2, b=3, c=4 → 2² + 3² + 4² = 4 + 9 + 16 = 29
-output=$(echo -e "2\n3\n4" | ./q18)
-if echo "$output" | grep -q "29"; then
-  echo "✅ Q18 test passed"
-else
-  echo "❌ Q18 test failed"
-  exit 1
-fi
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  # Run program and extract numbers only
+  output=$(echo "$input" | ./q_multiplication_while | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ')
+  if [ "$output" = "$expected" ]; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

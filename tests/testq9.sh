@@ -1,11 +1,24 @@
 #!/bin/bash
-set -e
 
-gcc src/q9.c -o q9
-output=$(echo "10" | ./q9)
-if echo "$output" | grep -q "1 week" && echo "$output" | grep -q "3 days"; then
-  echo "✅ Q9 passed"
+# Compile
+gcc src/q_pattern_dec.c -o q_pattern_dec
+
+# Define the expected pattern
+expected=$(cat <<'EOF'
+*****
+****
+***
+**
+*
+EOF
+)
+
+# Run the program and normalize output
+output=$(./q_pattern_dec | sed 's/[[:space:]]*$//')
+
+if [ "$output" = "$expected" ]; then
+  echo "✅ Decreasing pattern test passed"
 else
-  echo "❌ Q9 failed"
+  echo "❌ Decreasing pattern test failed"
   exit 1
 fi

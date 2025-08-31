@@ -1,22 +1,24 @@
 #!/bin/bash
-set -e
 
-# Disallow loops or conditionals
-if grep -E "for|while|if" src/q16.c; then
-  echo "⚠️ Warning: Found 'if', 'for', or 'while' in the code."
-  echo "These may appear in comments, strings, or identifiers — please double-check."
-  echo "Remove comment and instance of 'if', 'for', or 'while' from the code."
-  echo "❌ Q16 failed (loops/conditionals not allowed)"
-  exit 1
-fi
+# Compile
+gcc src/q_factorial_do.c -o q_factorial_do
 
-gcc src/q16.c -o q16
+# Test data: input -> expected factorial
+declare -A tests=(
+  [0]="1"
+  [1]="1"
+  [3]="6"
+  [5]="120"
+  [7]="5040"
+)
 
-# Test: x=4, y=6 → average = 5
-output=$(echo -e "4\n6" | ./q16)
-if echo "$output" | grep -q "5"; then
-  echo "✅ Q16 test passed"
-else
-  echo "❌ Q16 test failed"
-  exit 1
-fi
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  output=$(echo "$input" | ./q_factorial_do | tr -cd '0-9')
+  if [ "$output" = "$expected" ]; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

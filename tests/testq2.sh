@@ -1,13 +1,23 @@
 #!/bin/bash
-set -e
 
-gcc src/q3.c -o q3
-output=$(./q3)
+# Compile
+gcc src/q_vote.c -o q_vote
 
-if [[ "$output" == *"hello"* || "$output" == *"Hello"* || "$output" == *"welcome"* || "$output" == *"Welcome"* ]]; then
-  echo "✅ Q3 passed"
-else
-  echo "❌ Q3 failed"
-  exit 1
-fi
+# Test data: input -> expected keyword
+declare -A tests=(
+  [20]="eligible"
+  [18]="eligible"
+  [17]="not eligible"
+  [0]="not eligible"
+)
 
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  output=$(echo "$input" | ./q_vote | tr '[:upper:]' '[:lower:]')
+  if echo "$output" | grep -q "$expected"; then
+    echo "✅ Test with age $input passed"
+  else
+    echo "❌ Test with age $input failed"
+    exit 1
+  fi
+done

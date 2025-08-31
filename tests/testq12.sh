@@ -1,35 +1,20 @@
 #!/bin/bash
-set -e
-
-# Disallow loops or conditionals
-if grep -E "for|while|if" src/q12.c; then
-  echo "⚠️ Warning: Found 'if', 'for', or 'while' in the code."
-  echo "These may appear in comments, strings, or identifiers — please double-check."
-  echo "Remove comment and instance of 'if', 'for', or 'while' from the code."
-  echo "❌ q12 failed (loops/conditionals not allowed)"
-  exit 1
-fi
 
 # Compile
-gcc src/q12.c -o q12
+gcc src/q_numbers_1_100.c -o q_numbers_1_100
 
-# Test 1: a=5, b=3, c=2 → true (1)
-output=$(echo -e "5\n3\n2" | ./q12)
-if ! echo "$output" | grep -q "1"; then
-  echo "❌ Q12 failed on input (5,3,2)"
-  exit 1
-fi
+# Run program and extract numbers only
+output=$(./q_numbers_1_100 | tr -cd '0-9\n ')
 
-# Test 2: a=2, b=5, c=2 → false (0)
-output=$(echo -e "2\n5\n2" | ./q12)
-if ! echo "$output" | grep -q "0"; then
-  echo "❌ Q12 failed on input (2,5,2)"
-  exit 1
-fi
+# Prepare expected sequence
+expected=$(seq 1 100 | tr '\n' ' ' | tr -s ' ')
 
-# Test 3: a=5, b=3, c=0 → false (0)
-output=$(echo -e "5\n3\n0" | ./q12)
-if ! echo "$output" | grep -q "0"; then
-  echo "❌ Q12 failed on input (5,3,0)"
+# Normalize output
+output_norm=$(echo "$output" | tr '\n' ' ' | tr -s ' ')
+
+if [ "$output_norm" = "$expected" ]; then
+  echo "✅ Q_numbers_1_100 test passed"
+else
+  echo "❌ Q_numbers_1_100 test failed"
   exit 1
 fi

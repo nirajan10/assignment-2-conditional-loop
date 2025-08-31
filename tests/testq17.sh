@@ -1,40 +1,23 @@
 #!/bin/bash
-set -e
 
-# Disallow loops or conditionals
-if grep -E "for|while|if" src/q17.c; then
-  echo "⚠️ Warning: Found 'if', 'for', or 'while' in the code."
-  echo "These may appear in comments, strings, or identifiers — please double-check."
-  echo "Remove comment and instance of 'if', 'for', or 'while' from the code."
-  echo "❌ Q17 failed (loops/conditionals not allowed)"
-  exit 1
-fi
+# Compile
+gcc src/q_countdown.c -o q_countdown
 
-gcc src/q17.c -o q17
+# Test data: input -> expected sequence
+declare -A tests=(
+  [5]="5 4 3 2 1"
+  [3]="3 2 1"
+  [1]="1"
+)
 
-# Test: 'A' → uppercase → should output 1
-output=$(echo "A" | ./q17)
-if echo "$output" | grep -q "1"; then
-  echo "✅ Q17 uppercase test passed"
-else
-  echo "❌ Q17 uppercase test failed"
-  exit 1
-fi
-
-# Test: 'a' → lowercase → should output 0
-output=$(echo "a" | ./q17)
-if echo "$output" | grep -q "0"; then
-  echo "✅ Q17 lowercase test passed"
-else
-  echo "❌ Q17 lowercase test failed"
-  exit 1
-fi
-
-# Test: '9' → digit → should output 0
-output=$(echo "9" | ./q17)
-if echo "$output" | grep -q "0"; then
-  echo "✅ Q17 digit test passed"
-else
-  echo "❌ Q17 digit test failed"
-  exit 1
-fi
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  # Run program and extract numbers only
+  output=$(echo "$input" | ./q_countdown | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ')
+  if [ "$output" = "$expected" ]; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

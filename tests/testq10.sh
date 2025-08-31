@@ -1,11 +1,22 @@
 #!/bin/bash
-set -e
 
-gcc src/q10.c -o q10
-output=$(echo -e "5\n9" | ./q10)
-if echo "$output" | grep -q "5" && echo "$output" | grep -q "9"; then
-  echo "✅ Q10 passed"
+# Compile
+gcc src/q_pyramid.c -o q_pyramid
+
+# Define the expected pattern
+expected=$(cat <<'EOF'
+  *
+ ***
+*****
+EOF
+)
+
+# Run the program and normalize output
+output=$(./q_pyramid | sed 's/[[:space:]]*$//')
+
+if [ "$output" = "$expected" ]; then
+  echo "✅ Pyramid pattern test passed"
 else
-  echo "❌ Q10 failed"
+  echo "❌ Pyramid pattern test failed"
   exit 1
 fi

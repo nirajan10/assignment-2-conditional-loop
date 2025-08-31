@@ -1,13 +1,24 @@
 #!/bin/bash
-set -e
 
-gcc src/q3.c -o q3
-output=$(./q3)
+# Compile
+gcc src/q_factorial.c -o q_factorial
 
-if [[ "$output" == *"hello"* || "$output" == *"Hello"* || "$output" == *"welcome"* || "$output" == *"Welcome"* ]]; then
-  echo "✅ Q3 passed"
-else
-  echo "❌ Q3 failed"
-  exit 1
-fi
+# Test data: input -> expected factorial
+declare -A tests=(
+  [0]="1"
+  [1]="1"
+  [3]="6"
+  [5]="120"
+  [7]="5040"
+)
 
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  output=$(echo "$input" | ./q_factorial | tr -cd '0-9')
+  if [ "$output" = "$expected" ]; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

@@ -1,31 +1,22 @@
 #!/bin/bash
-set -e
 
-# Disallow loops or conditionals
-if grep -E "for|while|if" src/q19.c; then
-  echo "⚠️ Warning: Found 'if', 'for', or 'while' in the code."
-  echo "These may appear in comments, strings, or identifiers — please double-check."
-  echo "Remove comment and instance of 'if', 'for', or 'while' from the code."
-  echo "❌ Q19 failed (loops/conditionals not allowed)"
-  exit 1
-fi
+# Compile
+gcc src/q_square_pattern.c -o q_square_pattern
 
-gcc src/q19.c -o q19
+# Test data: input -> expected pattern (spaces allowed)
+declare -A tests
+tests[2]="* *\n* *"
+tests[3]="* * *\n* * *\n* * *"
+tests[4]="* * * *\n* * * *\n* * * *\n* * * *"
 
-# Test: a=5, b=5, c=7 → a==b true, b!=c true → should output 1
-output=$(echo -e "5\n5\n7" | ./q19)
-if echo "$output" | grep -q "1"; then
-  echo "✅ Q19 test 1 passed"
-else
-  echo "❌ Q19 test 1 failed"
-  exit 1
-fi
-
-# Test: a=4, b=4, c=4 → a==b true, b!=c false → should output 0
-output=$(echo -e "4\n4\n4" | ./q19)
-if echo "$output" | grep -q "0"; then
-  echo "✅ Q19 test 2 passed"
-else
-  echo "❌ Q19 test 2 failed"
-  exit 1
-fi
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  # Run program and normalize spaces at end of lines
+  output=$(echo "$input" | ./q_square_pattern | sed 's/[[:space:]]*$//')
+  if [ "$output" = "$expected" ]; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

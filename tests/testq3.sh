@@ -1,13 +1,24 @@
 #!/bin/bash
-set -e
 
-gcc src/q3.c -o q3
-output=$(./q3)
+# Compile
+gcc src/q_abs.c -o q_abs
 
-if [[ "$output" == *"hello"* || "$output" == *"Hello"* || "$output" == *"welcome"* || "$output" == *"Welcome"* ]]; then
-  echo "✅ Q3 passed"
-else
-  echo "❌ Q3 failed"
-  exit 1
-fi
+# Test data: input -> expected absolute value
+declare -A tests=(
+  [-5]="5"
+  [7]="7"
+  [0]="0"
+  [-123]="123"
+  [42]="42"
+)
 
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  output=$(echo "$input" | ./q_abs | tr -d '[:space:]')
+  if echo "$output" | grep -q "$expected"; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

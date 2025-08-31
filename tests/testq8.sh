@@ -1,11 +1,24 @@
 #!/bin/bash
-set -e
 
-gcc src/q8.c -o q8
-output=$(echo "0" | ./q8)
-if echo "$output" | grep -q "32"; then
-  echo "✅ Q8 passed"
+# Compile
+gcc src/q_pattern_inc.c -o q_pattern_inc
+
+# Define the expected pattern
+expected=$(cat <<'EOF'
+*
+**
+***
+****
+*****
+EOF
+)
+
+# Run the program and normalize output
+output=$(./q_pattern_inc | sed 's/[[:space:]]*$//')
+
+if [ "$output" = "$expected" ]; then
+  echo "✅ Increasing pattern test passed"
 else
-  echo "❌ Q8 failed"
+  echo "❌ Increasing pattern test failed"
   exit 1
 fi

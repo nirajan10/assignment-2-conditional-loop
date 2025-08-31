@@ -1,11 +1,23 @@
 #!/bin/bash
-set -e
 
-gcc src/q6.c -o q6
-output=$(echo -e "5\n4" | ./q6)
-if echo "$output" | grep -q "20"; then
-  echo "✅ Q6 passed"
-else
-  echo "❌ Q6 failed"
-  exit 1
-fi
+# Compile
+gcc src/q_multiplication.c -o q_multiplication
+
+# Test data: input -> expected sequence
+declare -A tests=(
+  [2]="2 4 6 8 10 12 14 16 18 20"
+  [5]="5 10 15 20 25 30 35 40 45 50"
+  [0]="0 0 0 0 0 0 0 0 0 0"
+)
+
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  # Extract only numbers from output
+  output=$(echo "$input" | ./q_multiplication | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ')
+  if [ "$output" = "$expected" ]; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

@@ -1,41 +1,26 @@
 #!/bin/bash
-set -e
-
-# Disallow loops or conditionals
-if grep -E "for|while|if" src/q15.c; then
-  echo "⚠️ Warning: Found 'if', 'for', or 'while' in the code."
-  echo "These may appear in comments, strings, or identifiers — please double-check."
-  echo "Remove comment and instance of 'if', 'for', or 'while' from the code."
-  echo "❌ Q15 failed (loops/conditionals not allowed)"
-  exit 1
-fi
 
 # Compile
-gcc src/q15.c -o q15
+gcc src/q_prime.c -o q_prime
 
-# Test: n=8 → positive and even → should output 1
-output=$(echo "8" | ./q15)
-if echo "$output" | grep -q "1"; then
-  echo "✅ Q15 positive-even test passed"
-else
-  echo "❌ Q15 positive-even test failed"
-  exit 1
-fi
+# Test data: input -> expected keyword
+declare -A tests=(
+  [1]="not prime"
+  [2]="prime"
+  [3]="prime"
+  [4]="not prime"
+  [7]="prime"
+  [12]="not prime"
+)
 
-# Test: n=7 → positive but odd → should output 0
-output=$(echo "7" | ./q15)
-if echo "$output" | grep -q "0"; then
-  echo "✅ Q15 positive-odd test passed"
-else
-  echo "❌ Q15 positive-odd test failed"
-  exit 1
-fi
-
-# Test: n=-4 → negative even → should output 0
-output=$(echo "-4" | ./q15)
-if echo "$output" | grep -q "0"; then
-  echo "✅ Q15 negative-even test passed"
-else
-  echo "❌ Q15 negative-even test failed"
-  exit 1
-fi
+for input in "${!tests[@]}"; do
+  expected="${tests[$input]}"
+  # Run program and convert output to lowercase
+  output=$(echo "$input" | ./q_prime | tr '[:upper:]' '[:lower:]')
+  if echo "$output" | grep -q "$expected"; then
+    echo "✅ Test with input $input passed"
+  else
+    echo "❌ Test with input $input failed"
+    exit 1
+  fi
+done

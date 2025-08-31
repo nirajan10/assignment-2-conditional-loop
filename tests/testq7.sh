@@ -1,13 +1,28 @@
 #!/bin/bash
-set -e
 
-gcc src/q3.c -o q3
-output=$(./q3)
+# Compile
+gcc src/q_pattern.c -o q_pattern
 
-if [[ "$output" == *"hello"* || "$output" == *"Hello"* || "$output" == *"welcome"* || "$output" == *"Welcome"* ]]; then
-  echo "✅ Q3 passed"
+# Define the expected pattern (normalize spaces)
+expected=$(cat <<'EOF'
+*
+**
+***
+****
+*****
+****
+***
+**
+*
+EOF
+)
+
+# Run the program and normalize output
+output=$(./q_pattern | sed 's/[[:space:]]*$//')
+
+if [ "$output" = "$expected" ]; then
+  echo "✅ Pattern test passed"
 else
-  echo "❌ Q3 failed"
+  echo "❌ Pattern test failed"
   exit 1
 fi
-

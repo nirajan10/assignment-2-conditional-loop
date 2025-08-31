@@ -13,7 +13,7 @@ declare -A tests=(
 for input in "${!tests[@]}"; do
   expected="${tests[$input]}"
   # Run program and extract numbers only
-  output=$(echo "$input" | ./q17 | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ')
+  output=$(echo "$input" | ./q17 | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ' | sed 's/[[:space:]]*$//')
   if [ "$output" = "$expected" ]; then
     echo "✅ Q17 test with input $input passed"
   else

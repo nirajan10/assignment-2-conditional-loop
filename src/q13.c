@@ -1,1 +1,1 @@
-// Write a C expression that evaluates whether a number is divisible by both 2 and 3 (without using the modulus operator).
+// Write a C program that calculates the sum of all even numbers from 1 to 50 using a while loop.

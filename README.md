@@ -2,71 +2,93 @@
 
 ## Instructions
 
-1. Upload a PDF containing all theory questions (if any) and answers in the docs/ folder
-    - You can create a doc and convert it to PDF online.
-    - Name pdf as `answer.pdf`
-    - Your first line of pdf should be `Name: Firstname-Lastname`. Eg: Name: Nirajan-Thakuri
-
-2. Write code in the corresponding `src/` file for each programming task.
-
-3. Do not change file names — tests depend on them.
-
-4. Commit and push your changes to GitHub.
+1. Write code in the corresponding `src/` file for each programming task.
+2. Do not change file names — tests depend on them.
+3. Commit and push your changes to GitHub.
 
 ---
 
-## Questions (Do not use conditionals or looping)
+## Questions
 
-**Q1.** What is the purpose of the main() function in a C program? Explain its significance.
+**Q1.** Write a C program that takes an integer input from the user and determines if it is positive, negative, or zero.
 
-**Q2.** Explain the difference between a variable declaration and a variable initialization in C.
+**Q2.** Write a C program that prompts the user for their age and determines if they are eligible to vote (consider the legal voting age in your country).
 
-**Q3.** Write a C program to display a personalized greeting message. (Should contain 'hello' or 'welcome' in the message)
+**Q3.** Write a C program that calculates the absolute value of a given number without using the built-in absolute value function.
 
-**Q4.** What are the different data types available in C? Provide examples of each data type.
+**Q4.** Write a C program that prints all even numbers between 1 and 100 using a for loop.
 
-**Q5.** Explain the concept of type conversions in C. Provide examples of implicit and explicit type conversions.
+**Q5.** Write a C program that prompts the user for a positive integer and calculates the factorial of that number using a while loop.
 
-**Q6.** Write a C program to calculate the area of a rectangle. Prompt the user to enter the length and width, and display the result.
+**Q6.** Write a C program that prompts the user for a number and prints its multiplication table up to 10 using a do-while loop.
 
-**Q7.** What is the role of the scanf() function in C? Provide an example of its usage.
+**Q7.** Write a C program that prints a pattern of asterisks.
+```
+    *
+    **
+    ***
+    ****
+    *****
+    ****
+    ***
+    **
+    *
+```
 
-**Q8.** Write a C program to convert temperature from Celsius to Fahrenheit. Prompt the user for a temperature in Celsius and display the equivalent temperature in Fahrenheit. (Formula: fahrenheit = (celsius * 9 / 5) + 32)
+**Q8.** Write a C program that prints a pattern of asterisks.
+```
+    *
+    **
+    ***
+    ****
+    *****
+```
 
-**Q9.** Input a number representing days and print the equivalent number of weeks and days. (Example: 10 days = 1 week and 3 days)
+**Q9.** Write a C program that prints a pattern of asterisks.
+```
+    *****
+    ****
+    ***
+    **
+    *
+```
 
-**Q10.** Write a C program to swap the values of two variables using a temporary variable.
+**Q10.** Write a C program that prints a pattern of asterisks.
+```
+      *
+     ***
+    *****
+```
 
-**Q11.** Write a C expression that performs the following operations in a single line: increment a variable by 1, multiply it by 3, and subtract 10.
+**Q11.** Write a C program that prints a pattern of asterisks.
+```
+    *****
+     ***
+      *
+```
 
-**Q12.** Given three variables a, b, and c, write an expression that checks if a is greater than b and c is not equal to 0.
+**Q12.** Write a C program that prints all numbers from 1 to 100 using a for loop.
 
-**Q13.** Write a C expression that evaluates whether a number is divisible by both 2 and 3 (without using the modulus operator).
+**Q13.** Write a C program that calculates the sum of all even numbers from 1 to 50 using a while loop.
 
-**Q14.** Create an expression that swaps the values of two variables x and y without using a temporary variable.
+**Q14.** Write a C program that prompts the user for a positive integer and prints all the factors of that number using a for loop.
 
-**Q15.** Write an expression that checks if a number is both positive and even.
+**Q15.** Write a C program that prompts the user for a positive integer and checks if it is a prime number using a while loop.
 
-**Q16.** Given two variables x and y, write an expression that calculates the average of their values.
+**Q16.** Write a C program that calculates the factorial of a given number using a do-while loop.
 
-**Q17.** Create an expression that checks if a given character is an uppercase letter.
+**Q17.** Write a C program that prompts the user for a positive integer and prints a countdown from that number to 1 using a for loop.
 
-**Q18.** Write a C expression that calculates the sum of the squares of three different numbers.
+**Q18.** Write a C program that prompts the user for a positive integer and prints the multiplication table for that number up to 10 using a while loop.
 
-**Q19.** Given three variables a, b, and c, write an expression that checks if a is equal to b and b is not equal to c.
+**Q19.** Write a C program that prompts the user for a positive integer and prints a pattern of asterisks (*) in a square shape using nested loops.
 
-**Q20.** Write an expression that checks if a number is a multiple of either 3 or 5.
-
-**Q21.** Create an expression that swaps the values of three variables x, y, and z in a cyclic order (i.e., x becomes y, y becomes z, and z becomes x).
-
-**Q22.** Write a C expression that calculates the square root of the sum of two numbers, rounded to the nearest integer.
-
-**Q23.** Given a variable num, write an expression that checks if it is a power of 2.
-
-**Q24.** Create an expression that checks if a given number is a perfect square.
+Example: User’s Input = 4, then pattern to print will be:
+```
+    * *
+    * *
+```
 
 ---
 
-## Deadline: 23:59, Thursday, 28th Aug, 2025
-
----
+## Deadline: 23:59, Saturday, 6th Sep, 2025

@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc poppler-utils
+          sudo apt-get install -y gcc
 
       - name: Run shell test scripts
         run: |
@@ -29,8 +29,13 @@ jobs:
           failed=0
 
           for t in \
+            tests/testq1.sh \
+            tests/testq2.sh \
             tests/testq3.sh \
+            tests/testq4.sh \
+            tests/testq5.sh \
             tests/testq6.sh \
+            tests/testq7.sh \
             tests/testq8.sh \
             tests/testq9.sh \
             tests/testq10.sh \
@@ -42,13 +47,7 @@ jobs:
             tests/testq16.sh \
             tests/testq17.sh \
             tests/testq18.sh \
-            tests/testq19.sh \
-            tests/testq20.sh \
-            tests/testq21.sh \
-            tests/testq22.sh \
-            tests/testq23.sh \
-            tests/testq24.sh \
-            tests/test_pdf.sh; do
+            tests/testq19.sh; do
               echo "Running $t ..."
               if ! $t; then
                 failed=1   # record failure but continue

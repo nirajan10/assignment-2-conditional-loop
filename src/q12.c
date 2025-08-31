@@ -1,1 +1,1 @@
-// Given three variables a, b, and c, write an expression that checks if a is greater than b and c is not equal to 0.
+// Write a C program that prints all numbers from 1 to 100 using a for loop.

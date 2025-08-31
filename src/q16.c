@@ -1,1 +1,1 @@
-// Given two variables x and y, write an expression that calculates the average of their values.
+// Write a C program that calculates the factorial of a given number using a do-while loop.

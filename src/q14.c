@@ -1,1 +1,1 @@
-// Create an expression that swaps the values of two variables x and y without using a temporary variable.
+// Write a C program that prompts the user for a positive integer and prints all the factors of that number using a for loop.

@@ -1,1 +1,1 @@
-// Write a C program to calculate the area of a rectangle. Prompt the user to enter the length and width, and display the result.
+// Write a C program that prompts the user for a number and prints its multiplication table up to 10 using a do-while loop.

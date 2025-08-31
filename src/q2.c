@@ -1,0 +1,1 @@
+// Write a C program that prompts the user for their age and determines if they are eligible to vote (consider the legal voting age in your country).

@@ -1,0 +1,1 @@
+// Write a C program that prompts the user for a number between 1 and 7 and prints the corresponding day of the week using a switch-case statement.

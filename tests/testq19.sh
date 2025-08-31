@@ -12,7 +12,7 @@ tests[4]="* * * *\n* * * *\n* * * *\n* * * *"
 for input in "${!tests[@]}"; do
   expected="${tests[$input]}"
   # Run program and normalize spaces at end of lines
-  output=$(echo "$input" | ./q19 | sed 's/[[:space:]]*$//')
+  output=$(echo "$input" | ./q19 | sed 's/[[:space:]]*$//' | sed 's/[[:space:]]*$//')
   if [ "$output" = "$expected" ]; then
     echo "✅ Q19 test with input $input passed"
   else

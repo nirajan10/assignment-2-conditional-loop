@@ -23,6 +23,7 @@
 **Q6.** Write a C program that prompts the user for a number and prints its multiplication table up to 10 using a do-while loop.
 
 **Q7.** Write a C program that prints a pattern of asterisks.
+
 ```
     *
     **
@@ -36,6 +37,7 @@
 ```
 
 **Q8.** Write a C program that prints a pattern of asterisks.
+
 ```
     *
     **
@@ -45,6 +47,7 @@
 ```
 
 **Q9.** Write a C program that prints a pattern of asterisks.
+
 ```
     *****
     ****
@@ -54,6 +57,7 @@
 ```
 
 **Q10.** Write a C program that prints a pattern of asterisks.
+
 ```
       *
      ***
@@ -61,6 +65,7 @@
 ```
 
 **Q11.** Write a C program that prints a pattern of asterisks.
+
 ```
     *****
      ***
@@ -84,6 +89,7 @@
 **Q19.** Write a C program that prompts the user for a positive integer and prints a pattern of asterisks (*) in a square shape using nested loops.
 
 Example: User’s Input = 2, then pattern to print will be:
+
 ```
     * *
     * *

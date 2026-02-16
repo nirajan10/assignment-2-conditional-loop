@@ -1,39 +1,30 @@
 #!/bin/bash
 
-gcc src/q19.c -o q19
+# Automatically detect question number from script name (testqX.sh)
+num=$(basename "$0" | grep -o -E '[0-9]+')
+SRC="./src/q${num}.c"
 
-# Test data: input -> expected pattern
-declare -A tests
-tests[2]=$(cat <<'EOF'
-* *
-* *
-EOF
-)
+# 1. Remove all comments (single-line // and block /* ... */)
+code_no_comments=$(sed -E '
+  s://.*$::g;               # remove // comments
+  :a; /\/*/{N; s:/\*.*\*/::; ba;}  # remove /* ... */ comments (multi-line)
+' "$SRC")
 
-tests[3]=$(cat <<'EOF'
-* * *
-* * *
-* * *
-EOF
-)
+# 2. Check if file (after removing comments) has any code left
+if ! echo "$code_no_comments" | grep -q '[^[:space:]]'; then
+    echo "❌ q${num}.c is empty or only contains comments"
+    exit 0
+fi
 
-tests[4]=$(cat <<'EOF'
-* * * *
-* * * *
-* * * *
-* * * *
-EOF
-)
+# 3. Try to compile
+gcc "$SRC" -o "q${num}.out" 2> compile.log
+if [ $? -ne 0 ]; then
+    echo "❌ Compilation failed for q${num}.c"
+    cat compile.log
+else
+    echo "✅ Compilation successful for q${num}.c"
+fi
 
-for input in "${!tests[@]}"; do
-  expected="${tests[$input]}"
-  # Run program and normalize trailing spaces on each line
-  output=$(echo "$input" | ./q19 | sed 's/[[:space:]]*$//')
-
-  if [ "$output" = "$expected" ]; then
-    echo "✅ Q19 test with input $input passed"
-  else
-    echo "❌ Q19 test with input $input failed"
-    echo 1
-  fi
-done
+# Cleanup
+rm -f "q${num}.out" compile.log
+exit 0

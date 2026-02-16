@@ -3,8 +3,15 @@
 ## Instructions
 
 1. Write code in the corresponding `src/` file for each programming task.
-2. Do not change file names — tests depend on them.
-3. Commit and push your changes to GitHub.
+
+2. Upload a `PDF` containing all answers with output screenshot in the docs/ folder
+   - You can create a doc (include question, answer and output screenshot - `only for coding question`) and convert it to PDF online.
+   - Your first line of pdf should be `Name: Firstname-Lastname`. Eg: Name: Nirajan-Thakuri
+   - Name pdf as `answer.pdf` (`.pdf` is a extention name so no need to include it if the extention is hidden)
+
+3. Do not change file names — tests depend on them.
+
+4. Commit and push your changes to GitHub.
 
 ---
 
@@ -98,5 +105,3 @@ Example: User’s Input = 2, then pattern to print will be:
 **Q20.** Write a C program that prompts the user for a number between 1 and 7 and prints the corresponding day of the week using a switch-case statement.
 
 ---
-
-## Deadline: 23:59, Saturday, 6th Sep, 2025

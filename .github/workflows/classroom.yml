@@ -48,7 +48,8 @@ jobs:
             tests/testq17.sh \
             tests/testq18.sh \
             tests/testq19.sh \
-            tests/testq20.sh; do
+            tests/testq20.sh \
+            tests/test_pdf.sh; do
               echo "Running $t ..."
               if ! $t; then
                 failed=1   # record failure but continue

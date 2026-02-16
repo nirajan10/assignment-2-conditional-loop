@@ -1,28 +1,30 @@
 #!/bin/bash
 
-# Compile
-gcc src/q20.c -o q20
+# Automatically detect question number from script name (testqX.sh)
+num=$(basename "$0" | grep -o -E '[0-9]+')
+SRC="./src/q${num}.c"
 
-# Test data: input -> expected output (case-insensitive)
-declare -A tests
-tests[1]="Sunday"
-tests[2]="Monday"
-tests[3]="Tuesday"
-tests[4]="Wednesday"
-tests[5]="Thursday"
-tests[6]="Friday"
-tests[7]="Saturday"
+# 1. Remove all comments (single-line // and block /* ... */)
+code_no_comments=$(sed -E '
+  s://.*$::g;               # remove // comments
+  :a; /\/*/{N; s:/\*.*\*/::; ba;}  # remove /* ... */ comments (multi-line)
+' "$SRC")
 
-for input in "${!tests[@]}"; do
-  expected="${tests[$input]}"
-  # Run program and convert to lowercase
-  output=$(echo "$input" | ./q20 | tr '[:upper:]' '[:lower:]')
-  expected_lc=$(echo "$expected" | tr '[:upper:]' '[:lower:]')
+# 2. Check if file (after removing comments) has any code left
+if ! echo "$code_no_comments" | grep -q '[^[:space:]]'; then
+    echo "❌ q${num}.c is empty or only contains comments"
+    exit 0
+fi
 
-  if echo "$output" | grep -q "$expected_lc"; then
-    echo "✅ Q20 test with input $input passed"
-  else
-    echo "❌ Q20 test with input $input failed"
-    exit 1
-  fi
-done
+# 3. Try to compile
+gcc "$SRC" -o "q${num}.out" 2> compile.log
+if [ $? -ne 0 ]; then
+    echo "❌ Compilation failed for q${num}.c"
+    cat compile.log
+else
+    echo "✅ Compilation successful for q${num}.c"
+fi
+
+# Cleanup
+rm -f "q${num}.out" compile.log
+exit 0

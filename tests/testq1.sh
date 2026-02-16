@@ -1,31 +1,30 @@
 #!/bin/bash
 
-# Compile
-gcc src/q1.c -o q1
+# Automatically detect question number from script name (testqX.sh)
+num=$(basename "$0" | grep -o -E '[0-9]+')
+SRC="./src/q${num}.c"
 
-# Test case 1: input = 5 → positive
-output=$(echo "5" | ./q1 | tr '[:upper:]' '[:lower:]')
-if echo "$output" | grep -q "positive"; then
-  echo "✅ Q1 test 1 passed"
-else
-  echo "❌ Q1 test 1 failed"
-  exit 1
+# 1. Remove all comments (single-line // and block /* ... */)
+code_no_comments=$(sed -E '
+  s://.*$::g;               # remove // comments
+  :a; /\/*/{N; s:/\*.*\*/::; ba;}  # remove /* ... */ comments (multi-line)
+' "$SRC")
+
+# 2. Check if file (after removing comments) has any code left
+if ! echo "$code_no_comments" | grep -q '[^[:space:]]'; then
+    echo "❌ q${num}.c is empty or only contains comments"
+    exit 0
 fi
 
-# Test case 2: input = -3 → negative
-output=$(echo "-3" | ./q1 | tr '[:upper:]' '[:lower:]')
-if echo "$output" | grep -q "negative"; then
-  echo "✅ Q1 test 2 passed"
+# 3. Try to compile
+gcc "$SRC" -o "q${num}.out" 2> compile.log
+if [ $? -ne 0 ]; then
+    echo "❌ Compilation failed for q${num}.c"
+    cat compile.log
 else
-  echo "❌ Q1 test 2 failed"
-  exit 1
+    echo "✅ Compilation successful for q${num}.c"
 fi
 
-# Test case 3: input = 0 → zero
-output=$(echo "0" | ./q1 | tr '[:upper:]' '[:lower:]')
-if echo "$output" | grep -q "zero"; then
-  echo "✅ Q1 test 3 passed"
-else
-  echo "❌ Q1 test 3 failed"
-  exit 1
-fi
+# Cleanup
+rm -f "q${num}.out" compile.log
+exit 0

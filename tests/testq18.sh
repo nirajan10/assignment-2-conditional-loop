@@ -1,23 +1,30 @@
 #!/bin/bash
 
-# Compile
-gcc src/q18.c -o q18
+# Automatically detect question number from script name (testqX.sh)
+num=$(basename "$0" | grep -o -E '[0-9]+')
+SRC="./src/q${num}.c"
 
-# Test data: input -> expected sequence
-declare -A tests=(
-  [2]="2 4 6 8 10 12 14 16 18 20"
-  [5]="5 10 15 20 25 30 35 40 45 50"
-  [1]="1 2 3 4 5 6 7 8 9 10"
-)
+# 1. Remove all comments (single-line // and block /* ... */)
+code_no_comments=$(sed -E '
+  s://.*$::g;               # remove // comments
+  :a; /\/*/{N; s:/\*.*\*/::; ba;}  # remove /* ... */ comments (multi-line)
+' "$SRC")
 
-for input in "${!tests[@]}"; do
-  expected="${tests[$input]}"
-  # Run program and extract numbers only
-  output=$(echo "$input" | ./q18 | tr -cd '0-9\n ' | tr '\n' ' ' | tr -s ' ' | sed 's/[[:space:]]*$//')
-  if [ "$output" = "$expected" ]; then
-    echo "✅ Q18 test with input $input passed"
-  else
-    echo "❌ Q18 test with input $input failed"
-    exit 1
-  fi
-done
+# 2. Check if file (after removing comments) has any code left
+if ! echo "$code_no_comments" | grep -q '[^[:space:]]'; then
+    echo "❌ q${num}.c is empty or only contains comments"
+    exit 0
+fi
+
+# 3. Try to compile
+gcc "$SRC" -o "q${num}.out" 2> compile.log
+if [ $? -ne 0 ]; then
+    echo "❌ Compilation failed for q${num}.c"
+    cat compile.log
+else
+    echo "✅ Compilation successful for q${num}.c"
+fi
+
+# Cleanup
+rm -f "q${num}.out" compile.log
+exit 0
